@@ -6,9 +6,41 @@ love.window.setTitle("Cronomêtro")
 love.window.setMode(D,D)
 
 love.graphics.setBackgroundColor(0,0,255)
+  
+  mili=0
+  
+  seg=0
+  
+  min=0
 
-ponteiro = love.graphics.newImage("Pointer.png")
+end
 
+function love.update(dt)
+  
+  mili=mili+dt*1000
+  
+  if mili>=1000 then
+    
+    mili=0
+    
+    seg=seg+1
+    
+    if seg==60 then
+      
+      seg=0
+      
+      min=min+1
+      
+      if min>=60 then
+        
+        min=0
+        
+      end
+      
+    end
+  end
+  
+  
 end
 
 function love.draw()
@@ -17,94 +49,33 @@ local w=love.graphics.getWidth()
 
 local h=love.graphics.getHeight()
 
-love.graphics.setColor(0,0,0)
-
-love.graphics.circle("fill",D/2,D/2,400,128)
-
-love.graphics.setColor(255,255,255)
-
-love.graphics.circle("fill",D/2,D/2,380,128)
-
-love.graphics.setColor(0,0,0)
-
-love.graphics.circle("fill",D/2,D/2,250,64)
-
-love.graphics.setColor(255,255,255)
-
-love.graphics.circle("fill",D/2,D/2,245,64)
-
-love.graphics.setColor(0,0,0)
-
 fonte=love.graphics.newFont("ariblk.ttf",100)
 
-texto12=love.graphics.newText(fonte,"12")
+--data=os.date("*t")
 
-texto1=love.graphics.newText(fonte,"1")
+--minuto=data.min
 
-texto2=love.graphics.newText(fonte,"2")
+--seg=data.sec
 
-texto3=love.graphics.newText(fonte,"3")
+textoMili=love.graphics.newText(fonte,tostring(mili))
 
-texto4=love.graphics.newText(fonte,"4")
+textoSeg=love.graphics.newText(fonte,tostring(seg))
 
-texto5=love.graphics.newText(fonte,"5")
+textoMin=love.graphics.newText(fonte,tostring(min))
 
-texto6=love.graphics.newText(fonte,"6")
+--love.graphics.setColor(0,0,0)
 
-texto7=love.graphics.newText(fonte,"7")
+love.graphics.draw(textoMili,D/2+150,D/2)
 
-texto8=love.graphics.newText(fonte,"8")
+love.graphics.draw(textoSeg,D/2,D/2)
 
-texto9=love.graphics.newText(fonte,"9")
+love.graphics.draw(textoMin,D/2-150,D/2)
 
-texto10=love.graphics.newText(fonte,"10")
+--love.graphics.draw(tostring(seg),D/2,D/2,,50/100)
 
-texto11=love.graphics.newText(fonte,"11")
-
-love.graphics.draw(texto12,360,10)
-
-love.graphics.draw(texto1,550,50)
-
-love.graphics.draw(texto2,670,170)
-
-love.graphics.draw(texto3,710,342)
-
-love.graphics.draw(texto6,370,680)
-
-love.graphics.draw(texto5,550,630)
-
-love.graphics.draw(texto4,660,510)
-
-love.graphics.draw(texto7,210,630)
-
-love.graphics.draw(texto8,80,510)
-
-love.graphics.draw(texto9,30,340)
-
-love.graphics.draw(texto10,75,175)
-
-love.graphics.draw(texto11,200,50)
-
-data=os.date("*t")
-
-hora=data.hour
-
-minuto=data.min
-
-seg=data.sec
-
-love.graphics.setColor(0,0,0)
-
-love.graphics.draw(ponteiro,D/2,D/2,(2*hora*math.pi/12)+((2*minuto*math.pi/60)/12)+((2*seg*math.pi/60)/60/12)-2.4,50/100)
-
-love.graphics.draw(ponteiro,D/2,D/2,(2*minuto*math.pi/60)+((2*seg*math.pi/60)/60)-2.4,67/100)
+--love.graphics.draw(tostring(seg*100/60),D/2,D/2,,50/100)
 
 love.graphics.setColor(255,255,255)
 
-love.graphics.draw(ponteiro,D/2,D/2,(2*seg*math.pi/60)-2.4,69/100)
-
-love.graphics.setColor(0,0,0)
-
-love.graphics.circle("fill",D/2,D/2,10,64)
 
 end
