@@ -12,10 +12,55 @@ love.graphics.setBackgroundColor(0,0,255)
   seg=0
   
   min=0
+  
+  dead=false
+
+fonte=love.graphics.newFont("ariblk.ttf",75)
+
+miliString=tostring(mili/10)
+
+textoMili=love.graphics.newText(fonte,string.format("%2d",miliString))
+
+textoSeg=love.graphics.newText(fonte,tostring(seg))
+
+textoMin=love.graphics.newText(fonte,tostring(min).."  :")
 
 end
 
+local function mensagemRecebida (mensagem)
+  if(mensagem == "dead") then
+    dead = not dead
+  end
+  if mensagem == "reset" then
+    
+    if dead then
+      
+      mili=0
+      
+      seg=0
+      
+      min=0
+      
+    end
+    
+  end
+end
+
+function love.keypressed(key)
+  
+  if key == "d" then
+    
+    dead= not dead
+    
+  end
+  
+end
+
 function love.update(dt)
+  
+  msgr.checkMessages()
+  
+  if dead then
   
   mili=mili+dt*1000
   
@@ -40,6 +85,7 @@ function love.update(dt)
     end
   end
   
+  end
   
 end
 
@@ -49,27 +95,13 @@ local w=love.graphics.getWidth()
 
 local h=love.graphics.getHeight()
 
-fonte=love.graphics.newFont("ariblk.ttf",100)
-
---data=os.date("*t")
-
---minuto=data.min
-
---seg=data.sec
-
-textoMili=love.graphics.newText(fonte,tostring(mili))
-
-textoSeg=love.graphics.newText(fonte,tostring(seg))
-
-textoMin=love.graphics.newText(fonte,tostring(min))
-
 --love.graphics.setColor(0,0,0)
 
-love.graphics.draw(textoMili,D/2+150,D/2)
+love.graphics.draw(textoMili,w/2+150,h/2-100)
 
-love.graphics.draw(textoSeg,D/2,D/2)
+love.graphics.draw(textoSeg,w/2-50,h/2-100)
 
-love.graphics.draw(textoMin,D/2-150,D/2)
+love.graphics.draw(textoMin,w/2-250,h/2-100)
 
 --love.graphics.draw(tostring(seg),D/2,D/2,,50/100)
 
