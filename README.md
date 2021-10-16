@@ -1,2 +1,2 @@
-# cronoS_Software
+# cronos Software
 A Timer developed with Lua.
